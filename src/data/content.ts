@@ -45,4 +45,4 @@ export const STEPS: Step[] = [
   },
 ];
 
-export const INQUIRY_EMAIL = 'hello@rootstudio.co';
+export const INQUIRY_EMAIL = 'asialakay@gmail.com';
