@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS contact_submissions (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  name         TEXT    NOT NULL,
+  email        TEXT    NOT NULL,
+  project_type TEXT    NOT NULL,
+  message      TEXT    NOT NULL,
+  created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status       TEXT    DEFAULT 'new'
+);
