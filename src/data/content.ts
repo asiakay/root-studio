@@ -30,8 +30,8 @@ export const CUSTOM_APPS: CustomApp[] = [
     name: 'FoundationPlanner',
     description:
       'Multi-agent grant discovery tool built for co-ops and mission-driven organizations navigating complex, multi-agency funding landscapes.',
-    link: 'https://github.com/asiakay/grant-manager-tool-demo',
-    linkLabel: 'View on GitHub →',
+    link: 'https://grant-manager-tool-demo.pages.dev/',
+    linkLabel: 'View demo →',
   },
   {
     icon: '⊞',
