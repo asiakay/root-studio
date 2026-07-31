@@ -4,10 +4,534 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>root-studio</title>
+    <title>Root Studio — Web, Brand &amp; Strategy for Mission-Driven Founders</title>
+    <meta name="description" content="Web, brand, and strategy for small businesses, community organizations, and mission-driven founders — without the agency overhead." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-serif: 'DM Serif Display', serif;
+        --font-sans: 'DM Sans', sans-serif;
+        --color-bg: #faf9f7;
+        --color-surface: #ffffff;
+        --color-text: #1a1a18;
+        --color-muted: #6b6b66;
+        --color-faint: #9c9c97;
+        --color-border: rgba(26,26,24,0.12);
+        --color-border-md: rgba(26,26,24,0.22);
+        --max-w: 780px;
+        color-scheme: light dark;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-bg: #111110;
+          --color-surface: #1a1a18;
+          --color-text: #f0ede8;
+          --color-muted: #8c8c87;
+          --color-faint: #5c5c58;
+          --color-border: rgba(240,237,232,0.1);
+          --color-border-md: rgba(240,237,232,0.2);
+        }
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 5rem 0 4rem;
+        border-bottom: 0.5px solid var(--color-border);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-faint);
+        margin-bottom: 1.75rem;
+      }
+
+      .hero h1 {
+        font-family: var(--font-serif);
+        font-size: clamp(36px, 6vw, 54px);
+        font-weight: 400;
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+        max-width: 600px;
+      }
+
+      .hero h1 em {
+        font-style: italic;
+        color: var(--color-muted);
+      }
+
+      .subhead {
+        font-size: 17px;
+        font-weight: 300;
+        color: var(--color-muted);
+        max-width: 480px;
+        line-height: 1.65;
+      }
+
+      /* ── Sections ── */
+      .section {
+        padding: 3.5rem 0;
+        border-bottom: 0.5px solid var(--color-border);
+      }
+
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-faint);
+        margin-bottom: 1.25rem;
+      }
+
+      .section-intro {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--color-muted);
+        line-height: 1.7;
+        max-width: 560px;
+        margin-bottom: 2.25rem;
+      }
+
+      /* ── Services ── */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1px;
+        background: var(--color-border);
+        border: 0.5px solid var(--color-border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .service-card {
+        background: var(--color-surface);
+        padding: 1.75rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .service-icon {
+        font-size: 18px;
+        line-height: 1;
+        opacity: 0.5;
+      }
+
+      .service-card h3 {
+        font-family: var(--font-serif);
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--color-text);
+      }
+
+      .service-card p {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--color-muted);
+        line-height: 1.65;
+        flex: 1;
+      }
+
+      .price-badge {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-text);
+        border: 0.5px solid var(--color-border-md);
+        border-radius: 6px;
+        padding: 4px 10px;
+        align-self: flex-start;
+      }
+
+      /* ── App links (Custom Applications cards) ── */
+      .app-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-text);
+        border: 0.5px solid var(--color-border-md);
+        border-radius: 6px;
+        padding: 4px 10px;
+        align-self: flex-start;
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+      }
+
+      .app-link:hover { opacity: 0.7; }
+
+      .app-link--placeholder {
+        color: var(--color-faint);
+        border-color: var(--color-border);
+        cursor: default;
+      }
+
+      /* ── Steps ── */
+      .steps-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+        border-bottom: 0.5px solid var(--color-border);
+      }
+
+      .step:last-child { border-bottom: none; }
+
+      .step-num {
+        font-family: var(--font-serif);
+        font-size: 30px;
+        font-weight: 400;
+        color: var(--color-faint);
+        min-width: 36px;
+        line-height: 1;
+        padding-top: 4px;
+      }
+
+      .step-body h4 {
+        font-weight: 500;
+        font-size: 15px;
+        margin-bottom: 4px;
+        color: var(--color-text);
+      }
+
+      .step-body p {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--color-muted);
+        line-height: 1.65;
+      }
+
+      /* ── Why Us ── */
+      .why-text {
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--color-muted);
+        max-width: 560px;
+      }
+
+      .why-text strong {
+        font-weight: 500;
+        color: var(--color-text);
+      }
+
+      /* ── CTA ── */
+      .cta {
+        padding: 5rem 0 6rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .cta h2 {
+        font-family: var(--font-serif);
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 400;
+        line-height: 1.2;
+        max-width: 520px;
+        color: var(--color-text);
+      }
+
+      .cta p {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--color-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        padding: 13px 30px;
+        background: var(--color-text);
+        color: var(--color-bg);
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+      }
+
+      .cta-btn:hover { opacity: 0.75; }
+
+      .cta-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ── Contact Form ── */
+      .cta-sub {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--color-muted);
+        margin-bottom: 2rem;
+      }
+
+      .form-honeypot {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .contact-form {
+        width: 100%;
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        text-align: left;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 520px) {
+        .form-row { grid-template-columns: 1fr; }
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .form-field label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-faint);
+      }
+
+      .form-field input,
+      .form-field select,
+      .form-field textarea {
+        font-family: var(--font-sans);
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--color-text);
+        background: var(--color-surface);
+        border: 0.5px solid var(--color-border-md);
+        border-radius: 8px;
+        padding: 10px 14px;
+        outline: none;
+        transition: border-color 0.15s ease;
+        width: 100%;
+      }
+
+      .form-field input::placeholder,
+      .form-field textarea::placeholder {
+        color: var(--color-faint);
+      }
+
+      .form-field input:focus,
+      .form-field select:focus,
+      .form-field textarea:focus {
+        border-color: var(--color-text);
+      }
+
+      .form-field input:disabled,
+      .form-field select:disabled,
+      .form-field textarea:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .form-field select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b66' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 38px;
+        cursor: pointer;
+      }
+
+      .form-field textarea {
+        resize: vertical;
+        min-height: 130px;
+        line-height: 1.65;
+      }
+
+      .form-error {
+        font-size: 14px;
+        color: #b44040;
+        font-weight: 400;
+      }
+
+      .form-success {
+        padding: 1.5rem 2rem;
+        border: 0.5px solid var(--color-border-md);
+        border-radius: 12px;
+        background: var(--color-surface);
+      }
+
+      .form-success p {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--color-text);
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <main class="page">
+
+      <!-- Hero -->
+      <section class="hero">
+        <span class="eyebrow">Root Studio Collective</span>
+        <h1>Professional creative services, <em>built for the work you're actually doing.</em></h1>
+        <p class="subhead">Web, brand, and strategy for small businesses, community organizations,
+          and mission-driven founders — without the agency overhead.</p>
+      </section>
+
+      <!-- What we do -->
+      <section class="section">
+        <p class="section-label">What we do</p>
+        <p class="section-intro">We build the infrastructure that lets your work show up right. Whether
+          you're launching, refreshing, or finally getting things in order — we scope it clean, price it
+          honest, and deliver work that holds up.</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">🌐</span>
+            <h3>Web</h3>
+            <p>Your site should do work for you. We design, build, or refresh sites that are clear, fast,
+              and built to last — no drag-and-drop bloat.</p>
+            <span class="price-badge">Starting at $350</span>
+          </div>
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">✦</span>
+            <h3>Brand</h3>
+            <p>Identity, visual direction, and messaging that actually reflects what you do and who you
+              serve — not a template someone else filled in.</p>
+            <span class="price-badge">$200 – $600</span>
+          </div>
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">◎</span>
+            <h3>Strategy</h3>
+            <p>Positioning, launch planning, and structure to get your idea off the ground or your
+              existing work organized for the next stage.</p>
+            <span class="price-badge">$150 – $400</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Custom Applications -->
+      <section class="section">
+        <p class="section-label">Custom Applications</p>
+        <p class="section-intro">Beyond web and brand work, Root Studio builds custom applications — tools
+          that solve a specific operational problem, not just look good.</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">◈</span>
+            <h3>FoundationPlanner</h3>
+            <p>Multi-agent grant discovery tool built for co-ops and mission-driven organizations
+              navigating complex, multi-agency funding landscapes.</p>
+            <a href="https://grant-manager-tool-demo.pages.dev/" class="app-link"
+               target="_blank" rel="noopener noreferrer">View demo →</a>
+          </div>
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">⊞</span>
+            <h3>CleanTech Index</h3>
+            <p>Data infrastructure tracking thousands of US clean energy projects, with working membership
+              access — built for researchers and organizations tracking the clean energy build-out.</p>
+            <span class="app-link app-link--placeholder">Coming soon</span>
+          </div>
+          <div class="service-card">
+            <span class="service-icon" aria-hidden="true">◉</span>
+            <h3>PermitPilot</h3>
+            <p>An application-assistance tool guiding cannabis commission applicants through a regulatory
+              filing process that's notoriously hard to navigate alone.</p>
+            <a href="https://PermitPilot.FrontPorchEconomics.com" class="app-link"
+               target="_blank" rel="noopener noreferrer">View live →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section">
+        <p class="section-label">How it works</p>
+        <ol class="steps-list">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">01</span>
+            <div class="step-body">
+              <h4>Inquire</h4>
+              <p>Tell us what you're building and where you're stuck — a short message, no deck required.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">02</span>
+            <div class="step-body">
+              <h4>Scope</h4>
+              <p>One focused conversation, clear deliverables, and a flat-price proposal — no surprises.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">03</span>
+            <div class="step-body">
+              <h4>Build &amp; deliver</h4>
+              <p>We do the work, keep you in the loop, and hand off something you can use on day one.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Why Root Studio -->
+      <section class="section">
+        <p class="section-label">Why Root Studio</p>
+        <p class="why-text">Root Studio is led by a
+          <strong>Boston-based cooperative economist, documentary filmmaker, and civic technologist</strong>
+          who has spent years building in community — not consulting from the outside. The work is grounded
+          in that difference. You get professional quality, an honest price, and a collaborator who
+          understands what it means to build something that actually has to hold.</p>
+      </section>
+
+      <!-- Contact form — React island; hydrated by /src/main.tsx -->
+      <div id="contact-root"></div>
+
+    </main>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
