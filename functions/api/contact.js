@@ -53,7 +53,7 @@ export async function onRequestPost(context) {
 
   // Email notification via Resend — failure does NOT block the success response;
   // the submission is already safely in D1.
-  const ownerEmail = env.OWNER_EMAIL || 'asialakay@gmail.com';
+  const ownerEmail = env.OWNER_EMAIL || 'asialakaygrady@gmail.com';
   const resendKey = env.RESEND_API_KEY;
 
   if (resendKey) {
