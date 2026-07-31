@@ -1,4 +1,4 @@
-import type { Service, Step } from '../types';
+import type { Service, CustomApp, Step } from '../types';
 
 export const SERVICES: Service[] = [
   {
@@ -21,6 +21,32 @@ export const SERVICES: Service[] = [
     description:
       'Positioning, launch planning, and structure to get your idea off the ground or your existing work organized for the next stage.',
     price: '$150 – $400',
+  },
+];
+
+export const CUSTOM_APPS: CustomApp[] = [
+  {
+    icon: '◈',
+    name: 'FoundationPlanner',
+    description:
+      'Multi-agent grant discovery tool built for co-ops and mission-driven organizations navigating complex, multi-agency funding landscapes.',
+    link: 'https://github.com/asiakay/grant-manager-tool-demo',
+    linkLabel: 'View on GitHub →',
+  },
+  {
+    icon: '⊞',
+    name: 'CleanTech Index',
+    description:
+      'Data infrastructure tracking thousands of US clean energy projects, with working membership access — built for researchers and organizations tracking the clean energy build-out.',
+    linkLabel: 'Coming soon',
+  },
+  {
+    icon: '◉',
+    name: 'PermitPilot',
+    description:
+      "An application-assistance tool guiding cannabis commission applicants through a regulatory filing process that's notoriously hard to navigate alone.",
+    link: 'https://PermitPilot.FrontPorchEconomics.com',
+    linkLabel: 'View live →',
   },
 ];
 
