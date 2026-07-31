@@ -51,28 +51,25 @@ export async function onRequestPost(context) {
     return json({ error: 'Failed to save your message. Please try again.' }, 500);
   }
 
-  // Email notification — failure here does NOT block the success response;
+  // Email notification via Resend — failure does NOT block the success response;
   // the submission is already safely in D1.
-  const ownerEmail = env.OWNER_EMAIL || 'asialakay@gmail.com';
-  const senderDomain = env.SENDER_DOMAIN || 'root-studio.pages.dev';
+  const ownerEmail = env.OWNER_EMAIL || 'asialakaygrady@gmail.com';
+  const resendKey = env.RESEND_API_KEY;
 
-  try {
-    const payload = {
-      personalizations: [
-        {
-          to: [{ email: ownerEmail, name: 'Root Studio' }],
+  if (resendKey) {
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendKey}`,
+          'Content-Type': 'application/json',
         },
-      ],
-      from: {
-        email: `contact@${senderDomain}`,
-        name: 'Root Studio Contact Form',
-      },
-      reply_to: { email: cleanEmail, name: cleanName },
-      subject: `New inquiry from ${cleanName} — ${project_type}`,
-      content: [
-        {
-          type: 'text/plain',
-          value: [
+        body: JSON.stringify({
+          from: 'Root Studio <onboarding@resend.dev>',
+          to: [ownerEmail],
+          reply_to: cleanEmail,
+          subject: `New inquiry from ${cleanName} — ${project_type}`,
+          text: [
             `New contact form submission`,
             ``,
             `Name:         ${cleanName}`,
@@ -81,25 +78,16 @@ export async function onRequestPost(context) {
             ``,
             `Message:`,
             cleanMessage,
-            ``,
-            `---`,
-            `Sent via the Root Studio contact form`,
           ].join('\n'),
-        },
-      ],
-    };
+        }),
+      });
 
-    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      console.error('MailChannels error:', res.status, await res.text());
+      if (!res.ok) {
+        console.error('Resend error:', res.status, await res.text());
+      }
+    } catch (err) {
+      console.error('Email notification failed (submission saved):', err);
     }
-  } catch (err) {
-    console.error('Email notification failed (submission saved):', err);
   }
 
   return json({ ok: true });
