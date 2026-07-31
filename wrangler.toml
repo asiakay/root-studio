@@ -5,5 +5,5 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "root-studio-db"
-database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+database_id = "cbb8d6bd-ee53-4eea-a27f-784a92a2ed4d"
 migrations_dir = "migrations"
