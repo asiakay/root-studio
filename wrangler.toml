@@ -1,3 +1,9 @@
 name = "root-studio"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "root-studio-db"
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+migrations_dir = "migrations"
