@@ -5,6 +5,14 @@ export interface Service {
   price: string;
 }
 
+export interface CustomApp {
+  icon: string;
+  name: string;
+  description: string;
+  link?: string;
+  linkLabel: string;
+}
+
 export interface Step {
   number: string;
   title: string;
