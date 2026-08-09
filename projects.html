@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Root Studio Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600&family=Newsreader:ital,wght@0,400;0,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161C; --bg-raised:#1B1E26;
+    --ink:#E9E5D8; --ink-dim:#9B9C9E;
+    --gold:#C9A24B; --clay:#C77B4C;
+    --rule:rgba(233,229,216,0.14); --rule-strong:rgba(233,229,216,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:'Newsreader', serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--gold); color:#14161C;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em; text-transform:uppercase; font-size:0.7rem;}
+
+  .topbar{
+    position:sticky; top:0; z-index:50; background:rgba(20,22,28,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.2rem clamp(1.2rem,4vw,3rem);
+  }
+  .topbar-mark{font-family:'Fraunces', serif; font-weight:500; font-size:1rem; text-decoration:none; color:var(--ink);}
+  .topbar a.mono{color:var(--ink-dim); text-decoration:none;}
+  .topbar a.mono:hover{color:var(--gold);}
+
+  .page-head{
+    max-width:1400px; margin:0 auto; padding:4.5rem clamp(1.2rem,5vw,3rem) 3rem;
+    border-bottom:1px solid var(--rule-strong);
+  }
+  .page-head .mono{color:var(--clay); margin-bottom:1.2rem; display:block;}
+  .page-head h1{
+    font-family:'Fraunces', serif; font-weight:400; font-size:clamp(2.2rem,5vw,3.4rem);
+    letter-spacing:-0.015em; max-width:14ch;
+  }
+  .page-head p{margin-top:1.2rem; color:var(--ink-dim); max-width:56ch; font-size:1.1rem; line-height:1.6;}
+
+  .filters{
+    max-width:1400px; margin:2rem auto 0; padding:0 clamp(1.2rem,5vw,3rem);
+    display:flex; gap:0.7rem; flex-wrap:wrap;
+  }
+  .filter-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase;
+    padding:0.45rem 0.9rem; border:1px solid var(--rule-strong); border-radius:20px;
+    color:var(--ink-dim);
+  }
+  .filter-chip.active{border-color:var(--gold); color:var(--gold);}
+
+  .grid{
+    max-width:1400px; margin:3rem auto 6rem; padding:0 clamp(1.2rem,5vw,3rem);
+    display:grid; grid-template-columns:1fr; gap:1px;
+    background:var(--rule); border:1px solid var(--rule);
+  }
+  @media(min-width:700px){.grid{grid-template-columns:1fr 1fr;}}
+  @media(min-width:1100px){.grid{grid-template-columns:1fr 1fr 1fr;}}
+
+  .card{
+    background:var(--bg); padding:2.2rem 1.9rem;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:280px; text-decoration:none; color:inherit;
+    transition:background 0.3s ease;
+  }
+  .card:hover{background:var(--bg-raised);}
+  .card-top .status{
+    display:inline-flex; align-items:center; gap:0.4rem;
+    color:var(--ink-dim); margin-bottom:1.4rem;
+  }
+  .status .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .status.private .dot{background:var(--ink-dim);}
+  .card-title{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.4rem;
+    line-height:1.22; letter-spacing:-0.01em; margin-bottom:0.7rem;
+  }
+  .card-problem{color:var(--ink-dim); font-size:0.95rem; line-height:1.5;}
+  .card-bottom{margin-top:1.8rem; display:flex; align-items:center; justify-content:space-between;}
+  .stack-tags{display:flex; gap:0.4rem; flex-wrap:wrap;}
+  .stack-tags span{
+    font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.04em;
+    color:var(--ink-dim); border:1px solid var(--rule-strong); border-radius:3px; padding:0.2rem 0.45rem;
+  }
+  .card-arrow{color:var(--ink-dim); font-family:'IBM Plex Mono', monospace; transition:transform 0.25s ease, color 0.25s ease;}
+  .card:hover .card-arrow{color:var(--gold); transform:translateX(3px);}
+
+  .card.featured{
+    grid-column:1 / -1;
+    display:grid; grid-template-columns:1fr; gap:1.5rem;
+    padding:2.6rem 2rem;
+    background:linear-gradient(135deg, var(--bg-raised), var(--bg));
+  }
+  @media(min-width:700px){.card.featured{grid-template-columns:1.1fr 1fr;}}
+  .featured .card-title{font-size:1.8rem;}
+  .featured-meta{align-self:end;}
+
+  footer{
+    padding:3rem clamp(1.2rem,5vw,3rem); border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+  }
+  footer a{color:var(--ink); text-decoration:none;}
+  footer .mono{color:var(--ink-dim);}
+  footer a.mono:hover{color:var(--gold);}
+
+  a:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-mark">Root Studio Systems</a>
+  <a href="index.html" class="mono">← Home</a>
+</div>
+
+<div class="page-head">
+  <span class="mono">Field Applications</span>
+  <h1>Projects Built</h1>
+  <p>Research isn't complete until it's load-bearing. These are the systems the frameworks became — cooperative platforms, civic infrastructure, and tools built on Cloudflare Workers, D1, and Pages.</p>
+</div>
+
+<div class="filters">
+  <span class="filter-chip active">All</span>
+  <span class="filter-chip">Cooperative Economics</span>
+  <span class="filter-chip">Civic Infrastructure</span>
+  <span class="filter-chip">Client Work</span>
+</div>
+
+<div class="grid">
+
+  <a href="#" class="card featured">
+    <div>
+      <div class="status mono"><span class="dot"></span>Live · Board Seat Held</div>
+      <div class="card-title">Solar Roots Co-op</div>
+      <p class="card-problem">Community energy education, food sovereignty, and solar workforce training. Public-facing platform with waitlist, dashboard, and signup flows — built to carry a MassCEC Equity Workforce grant narrative alongside daily membership operations.</p>
+    </div>
+    <div class="featured-meta">
+      <div class="stack-tags">
+        <span>Cloudflare Pages</span><span>D1</span><span>Workers</span>
+      </div>
+      <div class="card-bottom" style="margin-top:1.2rem;">
+        <span class="mono">solarroot.org</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status mono"><span class="dot"></span>In Development</div>
+      <div class="card-title">Front Porch Economics</div>
+      <p class="card-problem">A platform for mission-driven builders. SMS-authenticated identity via Twilio, JWT sessions, built for organizers who need infrastructure, not another social app.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>Workers</span><span>Twilio</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status mono"><span class="dot"></span>Live · 38/38 Tests Passing</div>
+      <div class="card-title">CleanTech Index</div>
+      <p class="card-problem">Clean energy tracking and evaluation tool with full Stripe integration, deployed and stable.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>D1</span><span>Stripe</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status private mono"><span class="dot"></span>Private</div>
+      <div class="card-title">LegalAide</div>
+      <p class="card-problem">Multi-tenant case manager built for legal aid workflows — access restricted by design.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>D1</span><span>Multi-tenant</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status mono"><span class="dot"></span>Schema Migrated</div>
+      <div class="card-title">CommonGround</div>
+      <p class="card-problem">Cooperative capital marketplace. Stripe Connect integration written, D1 schema live — connecting capital to community-controlled projects.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>Stripe Connect</span><span>D1</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status mono"><span class="dot"></span>Prompt Ready</div>
+      <div class="card-title">GrantMatch.dev</div>
+      <p class="card-problem">Grant-matching tool built around a mass.gov scraper spec, with EIA/FERC import pipeline in progress.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>Scraper</span><span>Workers</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a href="#" class="card">
+    <div class="card-top">
+      <div class="status mono"><span class="dot"></span>Live · Volunteer</div>
+      <div class="card-title">Fair Foods Scheduler</div>
+      <p class="card-problem">Volunteer scheduling built for Fair Foods, a Boston food-access nonprofit — live and in daily use.</p>
+    </div>
+    <div class="card-bottom">
+      <div class="stack-tags"><span>Pages</span><span>D1</span></div>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <span class="mono">Root Studio Systems — Projects</span>
+  <a href="deployed.html" class="mono">Need something built? Root Studio Deployed →</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Root Studio Deployed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600&family=Newsreader:ital,wght@0,400;0,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E7; --paper-raised:#FFFFFF;
+    --ink-dark:#1D1B15; --ink-dim:#6B6858;
+    --gold:#C9A24B; --clay:#A8562E;
+    --rule:rgba(29,27,21,0.13); --rule-strong:rgba(29,27,21,0.24);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink-dark); font-family:'Newsreader', serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--gold); color:var(--ink-dark);}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em; text-transform:uppercase; font-size:0.7rem;}
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.2rem clamp(1.2rem,4vw,3rem);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar-mark{font-family:'Fraunces', serif; font-weight:500; font-size:1rem; text-decoration:none; color:var(--ink-dark);}
+  .topbar-mark .sub{color:var(--clay); font-style:italic; font-weight:400;}
+  .topbar a.mono{color:var(--ink-dim); text-decoration:none;}
+  .topbar a.mono:hover{color:var(--clay);}
+
+  /* HERO — service register */
+  .hero{
+    max-width:1000px; margin:0 auto; padding:5rem clamp(1.2rem,5vw,3rem) 3.5rem;
+    text-align:left;
+  }
+  .hero .mono{color:var(--clay); display:block; margin-bottom:1.4rem;}
+  .hero h1{
+    font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2rem,4.6vw,3.1rem);
+    line-height:1.15; letter-spacing:-0.015em; max-width:18ch;
+  }
+  .hero p{margin-top:1.4rem; font-size:1.15rem; line-height:1.6; color:var(--ink-dim); max-width:54ch;}
+  .hero-cta{
+    margin-top:2.2rem; display:inline-flex; align-items:center; gap:0.7rem;
+    background:var(--ink-dark); color:var(--paper); text-decoration:none;
+    padding:0.9rem 1.6rem; font-family:'IBM Plex Mono', monospace; font-size:0.75rem;
+    letter-spacing:0.05em; text-transform:uppercase; border-radius:2px;
+    transition:background 0.25s ease;
+  }
+  .hero-cta:hover{background:var(--clay);}
+
+  /* WHO THIS IS FOR */
+  .fit-band{
+    background:var(--ink-dark); color:var(--paper);
+    padding:3.5rem clamp(1.2rem,5vw,3rem);
+  }
+  .fit-inner{max-width:1000px; margin:0 auto;}
+  .fit-inner .mono{color:var(--gold); display:block; margin-bottom:1.2rem;}
+  .fit-inner p{font-size:1.2rem; line-height:1.6; font-family:'Fraunces', serif; font-weight:400; max-width:58ch;}
+
+  /* SPRINT STRUCTURE */
+  .sprints{
+    max-width:1000px; margin:0 auto; padding:5rem clamp(1.2rem,5vw,3rem);
+  }
+  .sprints h2{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.9rem; margin-bottom:2.5rem; letter-spacing:-0.01em;
+  }
+  .sprint-row{
+    display:grid; grid-template-columns:1fr; gap:0;
+    border-top:1px solid var(--rule-strong);
+  }
+  @media(min-width:760px){.sprint-row{grid-template-columns: 220px 1fr 1fr;}}
+  .sprint-item{
+    padding:2rem 0; border-bottom:1px solid var(--rule);
+    display:grid; grid-template-columns:1fr; gap:0.6rem;
+  }
+  @media(min-width:760px){
+    .sprint-item{grid-template-columns: 220px 1fr 1fr; gap:1.5rem; align-items:start;}
+  }
+  .sprint-name{font-family:'Fraunces', serif; font-weight:500; font-size:1.25rem;}
+  .sprint-desc{color:var(--ink-dim); font-size:0.98rem; line-height:1.55;}
+  .sprint-scope{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--clay);}
+
+  /* PROOF */
+  .proof{
+    max-width:1000px; margin:0 auto; padding:0 clamp(1.2rem,5vw,3rem) 5rem;
+  }
+  .proof .mono{color:var(--clay); display:block; margin-bottom:1.6rem;}
+  .proof-grid{display:grid; grid-template-columns:1fr; gap:1px; background:var(--rule); border:1px solid var(--rule);}
+  @media(min-width:700px){.proof-grid{grid-template-columns:repeat(3,1fr);}}
+  .proof-card{background:var(--paper-raised); padding:1.8rem;}
+  .proof-card .p-title{font-family:'Fraunces', serif; font-weight:500; font-size:1.15rem; margin-bottom:0.5rem;}
+  .proof-card .p-desc{color:var(--ink-dim); font-size:0.9rem; line-height:1.5;}
+
+  /* CTA CLOSE */
+  .close-cta{
+    padding:5rem clamp(1.2rem,5vw,3rem); text-align:center;
+    border-top:1px solid var(--rule-strong);
+  }
+  .close-cta h2{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:clamp(1.6rem,3.6vw,2.4rem); max-width:22ch; margin:0 auto 2rem;
+  }
+
+  footer{
+    padding:2.5rem clamp(1.2rem,5vw,3rem); display:flex; justify-content:space-between;
+    border-top:1px solid var(--rule); flex-wrap:wrap; gap:1rem;
+  }
+  footer .mono{color:var(--ink-dim);}
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--clay); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-mark">Root Studio <span class="sub">Deployed</span></a>
+  <a href="index.html" class="mono">← Root Studio Systems</a>
+</div>
+
+<div class="hero">
+  <span class="mono">Forward-Deployed Technical Capacity</span>
+  <h1>Scoped sprints for teams who need it built, not architected forever.</h1>
+  <p>Root Studio Deployed is the applied practice inside Root Studio Systems — fixed-fee, fixed-scope technical work for cooperatives, civic organizations, and small teams who need working infrastructure on a real timeline.</p>
+  <a href="contact.html" class="hero-cta">Start a Sprint →</a>
+</div>
+
+<div class="fit-band">
+  <div class="fit-inner">
+    <span class="mono">Who This Is For</span>
+    <p>Cooperatives and mission-driven organizations that need a working platform — not a pitch deck about one. Teams with a clear problem, a real deadline, and no in-house engineer to own it.</p>
+  </div>
+</div>
+
+<div class="sprints">
+  <h2>How Sprints Work</h2>
+  <div class="sprint-row">
+    <div class="sprint-item">
+      <div class="sprint-name">Discovery</div>
+      <div class="sprint-desc">One working session to define the actual problem, not the assumed one. You leave with a written scope, not a proposal deck.</div>
+      <div class="sprint-scope">3–5 Days · Fixed Fee</div>
+    </div>
+    <div class="sprint-item">
+      <div class="sprint-name">Build Sprint</div>
+      <div class="sprint-desc">A scoped, working system shipped on a fixed timeline — Cloudflare Workers, D1, Pages, Stripe integration, or the stack your platform already runs on.</div>
+      <div class="sprint-scope">2–4 Weeks · Fixed Fee</div>
+    </div>
+    <div class="sprint-item">
+      <div class="sprint-name">Handoff</div>
+      <div class="sprint-desc">Documentation and a working session so your team can maintain what was built — not a dependency on me forever.</div>
+      <div class="sprint-scope">Included</div>
+    </div>
+  </div>
+</div>
+
+<div class="proof">
+  <span class="mono">Proof of Capacity</span>
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="p-title">Solar Roots Co-op</div>
+      <div class="p-desc">Live platform, waitlist, dashboard, and signup flows built and shipped.</div>
+    </div>
+    <div class="proof-card">
+      <div class="p-title">CleanTech Index</div>
+      <div class="p-desc">Full Stripe integration, 38/38 tests passing, deployed.</div>
+    </div>
+    <div class="proof-card">
+      <div class="p-title">Fair Foods Scheduler</div>
+      <div class="p-desc">Live volunteer scheduling tool, in daily nonprofit use.</div>
+    </div>
+  </div>
+</div>
+
+<div class="close-cta" id="contact">
+  <h2>If it needs to exist and it isn't real yet, that's the sprint.</h2>
+  <a href="contact.html" class="hero-cta">Get in Touch →</a>
+</div>
+
+<footer>
+  <span class="mono">Root Studio Deployed — a practice of Root Studio Systems</span>
+  <span class="mono">Boston, MA</span>
+</footer>
+
+</body>
+</html>

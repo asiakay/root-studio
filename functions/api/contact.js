@@ -1,5 +1,5 @@
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const VALID_TYPES = new Set(['web', 'brand', 'strategy', 'other']);
+const VALID_CONTACT_TYPES = new Set(['research', 'consulting']);
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -17,7 +17,7 @@ export async function onRequestPost(context) {
     return json({ error: 'Invalid request body.' }, 400);
   }
 
-  const { name, email, project_type, message, website } = body;
+  const { name, email, message, contact_type, website } = body;
 
   // Honeypot — bots fill this in; real users never see it
   if (website) {
@@ -29,31 +29,33 @@ export async function onRequestPost(context) {
     return json({ error: 'Name is required.' }, 400);
   if (!email?.trim() || !EMAIL_RE.test(email.trim()))
     return json({ error: 'A valid email address is required.' }, 400);
-  if (!VALID_TYPES.has(project_type))
-    return json({ error: 'Please select a valid project type.' }, 400);
   if (!message?.trim())
     return json({ error: 'Message is required.' }, 400);
+  if (!VALID_CONTACT_TYPES.has(contact_type))
+    return json({ error: 'Invalid contact type.' }, 400);
 
   const cleanName = name.trim();
   const cleanEmail = email.trim();
   const cleanMessage = message.trim();
 
-  // D1 insert — if this fails, we return an error to the user
+  // D1 insert
   try {
     await env.DB.prepare(
-      `INSERT INTO contact_submissions (name, email, project_type, message)
+      `INSERT INTO contact_submissions (name, email, contact_type, message)
        VALUES (?, ?, ?, ?)`
     )
-      .bind(cleanName, cleanEmail, project_type, cleanMessage)
+      .bind(cleanName, cleanEmail, contact_type, cleanMessage)
       .run();
   } catch (err) {
     console.error('D1 insert failed:', err);
     return json({ error: 'Failed to save your message. Please try again.' }, 500);
   }
 
-  // Email notification via Resend — failure does NOT block the success response;
-  // the submission is already safely in D1.
-  const ownerEmail = env.OWNER_EMAIL || 'asialakaygrady@gmail.com';
+  // Route email to the right inbox based on contact_type
+  const toAddress = contact_type === 'consulting'
+    ? 'sprints@rootstudiodeployed.com'
+    : 'hello@rootstudiosystems.com';
+
   const resendKey = env.RESEND_API_KEY;
 
   if (resendKey) {
@@ -65,16 +67,15 @@ export async function onRequestPost(context) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Root Studio <onboarding@resend.dev>',
-          to: [ownerEmail],
+          from: 'Root Studio Systems <onboarding@resend.dev>',
+          to: [toAddress],
           reply_to: cleanEmail,
-          subject: `New inquiry from ${cleanName} — ${project_type}`,
+          subject: `New ${contact_type} inquiry from ${cleanName}`,
           text: [
-            `New contact form submission`,
+            `New ${contact_type} contact form submission`,
             ``,
-            `Name:         ${cleanName}`,
-            `Email:        ${cleanEmail}`,
-            `Project type: ${project_type}`,
+            `Name:    ${cleanName}`,
+            `Email:   ${cleanEmail}`,
             ``,
             `Message:`,
             cleanMessage,

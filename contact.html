@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Root Studio Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Newsreader:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161C; --bg-raised:#1B1E26;
+    --ink:#E9E5D8; --ink-dim:#9B9C9E;
+    --gold:#C9A24B; --clay:#C77B4C;
+    --rule:rgba(233,229,216,0.14); --rule-strong:rgba(233,229,216,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:'Newsreader', serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--gold); color:#14161C;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em; text-transform:uppercase; font-size:0.7rem;}
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.2rem clamp(1.2rem,4vw,3rem); border-bottom:1px solid var(--rule);
+  }
+  .topbar-mark{font-family:'Fraunces', serif; font-weight:500; font-size:1rem; text-decoration:none; color:var(--ink);}
+  .topbar a.mono{color:var(--ink-dim); text-decoration:none;}
+  .topbar a.mono:hover{color:var(--gold);}
+
+  .head{
+    max-width:1000px; margin:0 auto; padding:5rem clamp(1.2rem,5vw,3rem) 3rem;
+  }
+  .head .mono{color:var(--clay); display:block; margin-bottom:1.4rem;}
+  .head h1{
+    font-family:'Fraunces', serif; font-weight:400; font-size:clamp(2rem,4.6vw,3rem);
+    letter-spacing:-0.015em; max-width:16ch;
+  }
+  .head p{margin-top:1.2rem; color:var(--ink-dim); font-size:1.08rem; max-width:52ch; line-height:1.6;}
+
+  .paths{
+    max-width:1000px; margin:2rem auto 6rem; padding:0 clamp(1.2rem,5vw,3rem);
+    display:grid; grid-template-columns:1fr; gap:1px;
+    background:var(--rule); border:1px solid var(--rule);
+  }
+  @media(min-width:760px){.paths{grid-template-columns:1fr 1fr;}}
+
+  .path-card{background:var(--bg); padding:2.6rem 2.2rem;}
+  .path-card.deployed{background:var(--bg-raised);}
+  .path-tag{color:var(--gold); display:block; margin-bottom:1.2rem;}
+  .path-card.deployed .path-tag{color:var(--clay);}
+  .path-title{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem;
+    margin-bottom:0.8rem; letter-spacing:-0.01em;
+  }
+  .path-desc{color:var(--ink-dim); font-size:0.98rem; line-height:1.55; margin-bottom:2rem; max-width:36ch;}
+
+  form{display:flex; flex-direction:column; gap:1.1rem;}
+  label{display:block; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:0.5rem;}
+  input, textarea{
+    width:100%; background:transparent; border:none; border-bottom:1px solid var(--rule-strong);
+    color:var(--ink); font-family:'Newsreader', serif; font-size:1rem; padding:0.5rem 0;
+    outline:none; resize:none;
+  }
+  input:focus, textarea:focus{border-bottom-color:var(--gold);}
+  textarea{min-height:80px;}
+  .honeypot{display:none;}
+  button[type="submit"]{
+    margin-top:0.6rem; align-self:flex-start;
+    background:var(--gold); color:#14161C; border:none;
+    padding:0.8rem 1.5rem; font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; border-radius:2px;
+    transition:background 0.25s ease;
+  }
+  .path-card.deployed button[type="submit"]{background:var(--clay); color:var(--bg);}
+  button[type="submit"]:hover{opacity:0.88;}
+  button[type="submit"]:disabled{opacity:0.5; cursor:not-allowed;}
+
+  .direct-email{
+    max-width:1000px; margin:0 auto 5rem; padding:0 clamp(1.2rem,5vw,3rem);
+    display:flex; gap:2.5rem; flex-wrap:wrap;
+  }
+  .direct-email .mono{color:var(--ink-dim); display:block; margin-bottom:0.4rem;}
+  .direct-email a{color:var(--ink); font-family:'Fraunces', serif; font-size:1.05rem; text-decoration:none; border-bottom:1px solid var(--rule-strong);}
+  .direct-email a:hover{color:var(--gold); border-color:var(--gold);}
+
+  footer{
+    padding:2.5rem clamp(1.2rem,5vw,3rem); border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+  }
+  footer .mono{color:var(--ink-dim);}
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-mark">Root Studio Systems</a>
+  <a href="index.html" class="mono">← Home</a>
+</div>
+
+<div class="head">
+  <span class="mono">Contact</span>
+  <h1>Two doors, one house.</h1>
+  <p>Whether you're reaching out about the research or the build, use the path that matches — it keeps both moving faster.</p>
+</div>
+
+<div class="paths">
+  <div class="path-card">
+    <span class="path-tag mono">Research &amp; Media</span>
+    <div class="path-title">Collaboration, Press, Citations</div>
+    <p class="path-desc">Speaking, interviews, syndication, or building on Liberation Logic and verification suppression research.</p>
+    <form data-contact="research">
+      <div>
+        <label for="r-name">Name</label>
+        <input type="text" id="r-name" name="name" placeholder="Your name" required>
+      </div>
+      <div>
+        <label for="r-email">Email</label>
+        <input type="email" id="r-email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div>
+        <label for="r-msg">What's this about?</label>
+        <textarea id="r-msg" name="message" placeholder="A few lines is enough." required></textarea>
+      </div>
+      <div class="honeypot" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit">Send →</button>
+    </form>
+  </div>
+
+  <div class="path-card deployed">
+    <span class="path-tag mono">Root Studio Deployed</span>
+    <div class="path-title">Sprint Inquiries</div>
+    <p class="path-desc">You have a problem, a deadline, and no one in-house to own it. Tell me what needs to exist.</p>
+    <form data-contact="consulting">
+      <div>
+        <label for="d-name">Name / Organization</label>
+        <input type="text" id="d-name" name="name" placeholder="Your name and org" required>
+      </div>
+      <div>
+        <label for="d-email">Email</label>
+        <input type="email" id="d-email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div>
+        <label for="d-msg">What needs to get built?</label>
+        <textarea id="d-msg" name="message" placeholder="Problem, timeline, and any constraints." required></textarea>
+      </div>
+      <div class="honeypot" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit">Start a Sprint →</button>
+    </form>
+  </div>
+</div>
+
+<div class="direct-email">
+  <div>
+    <span class="mono">Research / Media</span>
+    <a href="mailto:hello@rootstudiosystems.com">hello@rootstudiosystems.com</a>
+  </div>
+  <div>
+    <span class="mono">Deployed / Sprints</span>
+    <a href="mailto:sprints@rootstudiodeployed.com">sprints@rootstudiodeployed.com</a>
+  </div>
+</div>
+
+<footer>
+  <span class="mono">Root Studio Systems — Boston, MA</span>
+  <span class="mono">Jamaica Plain</span>
+</footer>
+
+<script type="module" src="/src/contact.js"></script>
+</body>
+</html>

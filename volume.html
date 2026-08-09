@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verification Suppression — Root Studio Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14161C;
+    --paper: #F6F1E7;
+    --paper-dim: #EFE9DA;
+    --ink: #E9E5D8;
+    --ink-dim: #9B9C9E;
+    --ink-dark: #1D1B15;
+    --ink-dark-dim: #6B6858;
+    --gold: #C9A24B;
+    --clay: #A8562E;
+    --rule: rgba(29,27,21,0.14);
+    --rule-strong: rgba(29,27,21,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink-dark);
+    font-family:'Newsreader', serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold); color:var(--ink-dark);}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em; text-transform:uppercase; font-size:0.7rem;}
+
+  /* TOP BAR */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper); border-bottom:1px solid var(--rule);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem clamp(1.2rem,4vw,3rem);
+  }
+  .topbar-mark{font-family:'Fraunces', serif; font-weight:500; font-size:0.98rem; text-decoration:none; color:var(--ink-dark);}
+  .topbar-meta{display:flex; gap:1.6rem; align-items:center;}
+  .topbar-meta a{color:var(--ink-dark-dim); text-decoration:none;}
+  .topbar-meta a:hover{color:var(--clay);}
+  .print-btn{
+    background:var(--ink-dark); color:var(--paper); border:none;
+    padding:0.55rem 1rem; font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+    letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; border-radius:2px;
+  }
+  .print-btn:hover{background:var(--clay);}
+
+  /* MASTHEAD */
+  .masthead{
+    max-width:1200px; margin:0 auto; padding:4.5rem clamp(1.2rem,5vw,3rem) 2.5rem;
+    border-bottom:1px solid var(--rule-strong);
+  }
+  .volume-tag{color:var(--clay); margin-bottom:1.4rem;}
+  .masthead h1{
+    font-family:'Fraunces', serif; font-weight:400; font-size:clamp(2.1rem,5vw,3.6rem);
+    line-height:1.08; letter-spacing:-0.015em; max-width:16ch;
+  }
+  .masthead .dek{
+    margin-top:1.3rem; font-size:1.2rem; font-style:italic; color:var(--ink-dark-dim);
+    max-width:52ch; line-height:1.5;
+  }
+  .masthead-meta{
+    display:flex; gap:2.2rem; flex-wrap:wrap; margin-top:2.2rem;
+    color:var(--ink-dark-dim);
+  }
+
+  /* LAYOUT: article + margin rail */
+  .article-shell{
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr;
+    gap:0;
+    padding:3.5rem clamp(1.2rem,5vw,3rem) 6rem;
+  }
+  @media(min-width:920px){
+    .article-shell{grid-template-columns: minmax(0,66ch) 1fr;}
+  }
+  article{font-size:1.14rem; line-height:1.75; max-width:66ch;}
+  article p{margin-bottom:1.5rem;}
+  article h2{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.6rem;
+    margin:3rem 0 1.2rem; letter-spacing:-0.01em;
+  }
+  article .drop-cap::first-letter{
+    font-family:'Fraunces', serif; font-size:4.2rem; float:left; line-height:0.8;
+    padding-right:0.5rem; padding-top:0.3rem; color:var(--clay); font-weight:500;
+  }
+  .pull-quote{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:1.55rem; line-height:1.4; color:var(--ink-dark);
+    border-left:2px solid var(--gold); padding:0.2rem 0 0.2rem 1.6rem;
+    margin:2.6rem 0; max-width:50ch;
+  }
+  .term{
+    color:var(--clay); border-bottom:1px dotted var(--clay); cursor:help;
+    text-decoration:none; position:relative;
+  }
+
+  /* MARGIN RAIL */
+  .margin-rail{display:none;}
+  @media(min-width:920px){
+    .margin-rail{
+      display:block; position:relative; padding-left:2.5rem;
+      border-left:1px solid var(--rule);
+    }
+  }
+  .margin-note{
+    position:sticky; top:6.5rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; line-height:1.55;
+    color:var(--ink-dark-dim); padding-bottom:2rem; max-width:26ch;
+  }
+  .margin-note .note-label{
+    color:var(--clay); text-transform:uppercase; letter-spacing:0.06em;
+    font-size:0.66rem; display:block; margin-bottom:0.5rem;
+  }
+  .margin-note + .margin-note{margin-top:8rem;}
+
+  /* CITATION */
+  .citation-block{
+    margin:3rem 0; padding:1.4rem 1.6rem;
+    background:var(--paper-dim); border-radius:2px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+    color:var(--ink-dark-dim); line-height:1.6;
+  }
+  .citation-block .cite-label{color:var(--clay); display:block; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.06em; font-size:0.66rem;}
+
+  /* FOOTER NAV */
+  .article-foot{
+    max-width:1200px; margin:0 auto; padding:0 clamp(1.2rem,5vw,3rem) 5rem;
+    display:flex; justify-content:space-between; border-top:1px solid var(--rule); padding-top:2rem;
+  }
+  .article-foot a{color:var(--ink-dark); text-decoration:none;}
+  .article-foot a:hover{color:var(--clay);}
+
+  /* PRINT */
+  @media print{
+    .topbar, .margin-rail, .article-foot{display:none;}
+    body{background:#fff; color:#000;}
+    .masthead{border-bottom:1px solid #000; padding-top:0;}
+    article{max-width:100%; font-size:11pt; line-height:1.5;}
+    .pull-quote{border-left:2px solid #000; color:#000;}
+    .article-shell{grid-template-columns:1fr; padding:1cm 0;}
+    a{color:#000; text-decoration:none;}
+    @page{margin:2cm;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--clay); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-mark">Root Studio Systems</a>
+  <div class="topbar-meta">
+    <a href="index.html#volumes" class="mono">← The Volumes</a>
+    <button class="print-btn" onclick="window.print()">Export PDF</button>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="volume-tag mono">Volume II — Verification Suppression</div>
+  <h1>The Rational Criminal, Revisited</h1>
+  <p class="dek">Housing quality, chronic disease, and what institutions choose not to see.</p>
+  <div class="masthead-meta mono">
+    <span>Asia Lakay Grady</span>
+    <span>Field Research</span>
+    <span>12 min read</span>
+  </div>
+</div>
+
+<div class="article-shell">
+  <article>
+    <p class="drop-cap">Becker's rational criminal model assumes a calculating actor weighing cost against consequence. It says nothing about the institution that chooses not to look — the landlord who declines to document, the agency that closes a file early, the system that treats absence of record as absence of harm. This is where the model breaks, and where <span class="term" title="The suppression or non-generation of documentation that would establish institutional accountability for harm.">verification suppression</span> begins.</p>
+
+    <p>The empirical case for this extension does not come from abstraction. It comes from inspection records, self-certification forms with missing signatures, and a maintenance pattern that drops off exactly when a legal filing becomes likely. The pattern is not incompetence. It is a rational response to the cost of being seen clearly.</p>
+
+    <div class="pull-quote">When an institution can choose whether harm is documented, the absence of documentation stops being neutral. It becomes a decision.</div>
+
+    <h2>The Housing Case</h2>
+    <p>Chronic disease research treats housing quality as a background variable — present, but rarely causal in the models that determine funding or liability. Verification suppression argues the opposite: that the withholding of documentation is itself a mechanism of harm, distinct from and compounding the physical conditions it conceals.</p>
+
+    <div class="citation-block">
+      <span class="cite-label">Field Note — 03</span>
+      Address discrepancy across court filings; VOC report inconsistent with maintenance log cadence. Full citation set available in the print export.
+    </div>
+
+    <p>Community-controlled weatherization reframes the remedy: not better compliance enforcement from the outside, but verification infrastructure controlled by the people who live the consequences of its absence.</p>
+
+    <h2>Toward a Cooperative Remedy</h2>
+    <p>This is where the framework connects outward — to cooperative economics, to Liberation Logic's nested control systems, to the broader thesis that resilience requires residents to hold the tools of verification themselves, not petition institutions to use them fairly.</p>
+  </article>
+
+  <aside class="margin-rail">
+    <div class="margin-note">
+      <span class="note-label">Definition</span>
+      Verification suppression — an original extension of Becker's rational criminal model, developed through direct case documentation.
+    </div>
+    <div class="margin-note">
+      <span class="note-label">Connects to</span>
+      Liberation Logic · Nested Control Systems · Cooperative Economics
+    </div>
+    <div class="margin-note">
+      <span class="note-label">Method</span>
+      Resident learner framework — theory derived from lived case documentation, not applied from outside it.
+    </div>
+  </aside>
+</div>
+
+<div class="article-foot mono">
+  <a href="index.html#volumes">← Volume I — Liberation Logic</a>
+  <a href="index.html#volumes">Volume III — The Escape Hatch →</a>
+</div>
+
+</body>
+</html>
