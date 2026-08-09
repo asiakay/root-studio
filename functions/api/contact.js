@@ -38,10 +38,10 @@ export async function onRequestPost(context) {
   const cleanEmail = email.trim();
   const cleanMessage = message.trim();
 
-  // D1 insert
+  // D1 insert — stores contact_type in project_type column until migration 0002 runs
   try {
     await env.DB.prepare(
-      `INSERT INTO contact_submissions (name, email, contact_type, message)
+      `INSERT INTO contact_submissions (name, email, project_type, message)
        VALUES (?, ?, ?, ?)`
     )
       .bind(cleanName, cleanEmail, contact_type, cleanMessage)
